@@ -10,7 +10,13 @@ namespace Zachary_Childers_CPT_185_Final
 {
     class Floppy
     {
-        static void Main(string[] args) => new Floppy().RunBotAsync().GetAwaiter().GetResult();
+
+        
+        
+            static void Main(string[] args) =>
+                new Floppy().RunBotAsync().GetAwaiter().GetResult();
+
+    
 
         private DiscordSocketClient _client;
         private CommandService _commands;
@@ -20,24 +26,36 @@ namespace Zachary_Childers_CPT_185_Final
 
         public async Task RunBotAsync()
         {
-            _client = new DiscordSocketClient();
-            _commands = new CommandService();
-
-            _services = new ServiceCollection()
-                .AddSingleton(_client)
-                .AddSingleton(_commands)
-                .BuildServiceProvider();
+            try
+            {
 
 
-            _client.Log += _client_Log;
+                Console.WriteLine("This is my project for CPT-185 - C#\n" +
+                "This is a bot that interacts with the Discord Chat application API and does a few fun things." +
+                "\nI've made a few of these before in various languages, such as C++, Python, various ones in C# --\n and am in the process of one in Rust." +
+                "\n\nI hope you'll enjoy!\nZachary Childers\n\n");
 
-            await RegisterCommandsAsync();
 
-            await _client.LoginAsync(TokenType.Bot, token);
+                _client = new DiscordSocketClient();
+                _commands = new CommandService();
 
-            await _client.StartAsync();
-
-            await Task.Delay(-1);
+                _services = new ServiceCollection()
+                    .AddSingleton(_client)
+                    .AddSingleton(_commands)
+                    .BuildServiceProvider();
+                _client.Log += _client_Log;
+                await RegisterCommandsAsync();
+                await _client.LoginAsync(TokenType.Bot, token);
+                await _client.StartAsync();
+                await Task.Delay(-1);
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("\nAn exception occurred! The token may be configured improperly, " +
+                    "or it may be wrong\nPlease double check the validity " +
+                    "of your token!\nIf you need a new token," +
+                    " head to:\nhttps://discord.com/developers/applications");
+            }
 
         }
 
@@ -46,7 +64,11 @@ namespace Zachary_Childers_CPT_185_Final
         {
             Console.WriteLine(arg);
             return Task.CompletedTask;
+
         }
+        
+
+
 
         public async Task RegisterCommandsAsync()
         {

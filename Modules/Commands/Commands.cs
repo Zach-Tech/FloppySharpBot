@@ -5,18 +5,13 @@ using Discord.Commands;
 using Discord;
 using Discord.WebSocket;
 using System.Threading.Tasks;
+using Discord.Net;
 
 namespace Zachary_Childers_CPT_185_Final.Commands
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        Dictionary<string, string> HelpCommand = new Dictionary<string, string>()
-        {
-            {"\n**Ping**", "Returns Pong\n"}, {"\n**Help**", "Returns This command\n"},
-            {"\n**Add**", "Adds together two numbers\n"}
-        };
-
-
+      
         private readonly CommandService _service;
 
         public Commands(CommandService service)
@@ -47,6 +42,33 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             var userInfo = user ?? Context.Client.CurrentUser;
             await ReplyAsync($"{userInfo.Username}#{userInfo.Discriminator}");
         }
+
+      // [Command("cat")]
+      // [Summary("Returns a kitty")]
+      // public async Task Cat()
+      // {
+      //    //var embed = new EmbedBuilder();
+      //    //embed.WithTitle("Here's a cat!");
+      //    //embed.WithImageUrl("https://imgur.com/r/cats/oNPbwxs");
+      //    //embed.WithColor(new Color(52, 152, 219));
+      //    //embed.WithCurrentTimestamp();
+      //     await Context.Channel.SendMessageAsync("", embed: embed.Build());
+      // }
+
+        [Command("xkcd")]
+        [Summary("Returns an xkcd comic")]
+        public async Task xkcd()
+        {
+            var embed = new EmbedBuilder();
+            embed.WithTitle("xkcd comic!");
+            embed.WithImageUrl("https://imgs.xkcd.com/comics/life_before_the_pandemic.png");
+            embed.WithColor(new Color(52, 152, 219));
+            embed.WithCurrentTimestamp();
+            await Context.Channel.SendMessageAsync("", embed: embed.Build());
+        }
+
+      
+        
 
 
 

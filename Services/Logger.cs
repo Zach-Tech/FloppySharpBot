@@ -20,28 +20,26 @@ namespace Zachary_Childers_CPT_185_Final.Services
 
             return Task.CompletedTask;
         }
-        // Possibly use this later
-        //  private ConsoleColor SeverityToConsoleColor(LogSeverity severity)
-        //  {
-        //      switch (severity)
-        //      {
-        //          case LogSeverity.Critical:
-        //              return ConsoleColor.Red;
-        //          case LogSeverity.Debug:
-        //              return ConsoleColor.Blue;
-        //          case LogSeverity.Error:
-        //              return ConsoleColor.Yellow;
-        //          case LogSeverity.Info:
-        //              return ConsoleColor.Blue;
-        //          case LogSeverity.Verbose:
-        //              return ConsoleColor.Green;
-        //          case LogSeverity.Warning:
-        //              return ConsoleColor.Magenta;
-        //          default:
-        //              return ConsoleColor.White;
-        //      }
-        //  }
 
-
+        private ConsoleColor SeverityToConsoleColor(LogSeverity severity)
+         {
+              switch (severity)
+              {
+                  case LogSeverity.Critical:
+                      return ConsoleColor.Red;
+                  case LogSeverity.Debug:
+                      return ConsoleColor.Blue;
+                  case LogSeverity.Error:
+                      return ConsoleColor.Yellow;
+                  case LogSeverity.Info:
+                      return ConsoleColor.Blue;
+                  case LogSeverity.Verbose:
+                      return ConsoleColor.Green;
+                  case LogSeverity.Warning:
+                      return ConsoleColor.Magenta;
+                  default:
+                      return ConsoleColor.White;
+              }
+         }
     }
 }

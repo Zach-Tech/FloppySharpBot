@@ -59,15 +59,6 @@ namespace Zachary_Childers_CPT_185_Final.Admin
             await ReplyAsync($"Changed game to `{gamename}`");
             await Context.Message.DeleteAsync();
         }
-
-        [Command("prefix")]
-        [Remarks("Prefix [ new prefix]")]
-        [Summary("This allows admins to change the command prefix")]
-        [RequireUserPermission(GuildPermission.Administrator)]
-        public async Task ChangePrefix([Remainder] char prefix)
-        {
-            await ChangePrefix(prefix);
-        }
         [Command("createtext")]
         [Remarks("Make A Text Channel")]
         [RequireUserPermission(GuildPermission.ManageChannels)]
@@ -75,7 +66,6 @@ namespace Zachary_Childers_CPT_185_Final.Admin
         {
             await Context.Guild.CreateTextChannelAsync(channelname);
         }
-
         [Command("createvoice")]
         [Remarks("Make A Voice Channel")]
         [RequireUserPermission(GuildPermission.ManageChannels)]
@@ -83,7 +73,6 @@ namespace Zachary_Childers_CPT_185_Final.Admin
         {
             await Context.Guild.CreateVoiceChannelAsync(channelname);
         }
-
         [Command("announce")]
         [Remarks("Make A Announcement")]
         [RequireUserPermission(GuildPermission.Administrator)]
@@ -94,8 +83,6 @@ namespace Zachary_Childers_CPT_185_Final.Admin
             await Context.Channel.SendMessageAsync("", false, embed);
             await Context.Message.DeleteAsync();
         }
-
-
         [Command("nickname")]
         [Remarks("Set A User's Nickname")]
         [RequireUserPermission(Discord.GuildPermission.ManageNicknames)]
@@ -115,18 +102,6 @@ namespace Zachary_Childers_CPT_185_Final.Admin
         [Command("unban")]
         [Remarks("Unban A User")]
         [RequireUserPermission(GuildPermission.BanMembers)]
-        public async Task Unban([Remainder] string user)
-        {
-            var bans = await Context.Guild.GetBansAsync();
-
-            var theUser = bans.FirstOrDefault(x => x.User.ToString().ToLowerInvariant() == user.ToLowerInvariant());
-
-            await Context.Guild.RemoveBanAsync(theUser.User).ConfigureAwait(false);
-        }
-
-        [Command("unban")]
-        [Remarks("Unban A User")]
-        [RequireUserPermission(GuildPermission.BanMembers)]
         public async Task Unban(ulong id)
         {
             var bans = await Context.Guild.GetBansAsync();
@@ -135,6 +110,10 @@ namespace Zachary_Childers_CPT_185_Final.Admin
 
             await Context.Guild.RemoveBanAsync(theUser.User);
         }
+
+      
+
+
 
 
     }
