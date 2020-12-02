@@ -6,18 +6,33 @@ using Discord;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 using Discord.Net;
+using MiNET.Plugins.Commands;
 
 namespace Zachary_Childers_CPT_185_Final.Commands
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        List<string> HelpCommand = new List<string>(10)
+            HelpCommand.Add("Ping");
       
         private readonly CommandService _service;
 
         public Commands(CommandService service)
         {
             _service = service;
+
         }
+
+
+        [Command("Help")]
+        public async Task Help()
+        {
+            var embed = new EmbedBuilder();
+            embed.WithTitle("Help in your time of need!");
+            embed.WithColor(new Color(52, 152, 219));
+            embed.WithCurrentTimestamp();
+            await Context.Channel.SendMessageAsync("", embed: embed.Build(), HelpCommand);
+    }
 
         //Basic first command, I say "Ping", bot replies "Pong"
         //Generally, all commands must be activated by a prefix,
