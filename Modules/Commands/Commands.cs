@@ -12,33 +12,15 @@ namespace Zachary_Childers_CPT_185_Final.Commands
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        List<string> HelpCommand = new List<string>(10)
-            HelpCommand.Add("Ping");
-      
-        private readonly CommandService _service;
-
-        public Commands(CommandService service)
-        {
-            _service = service;
-
-        }
-
-
-        [Command("Help")]
-        public async Task Help()
-        {
-            var embed = new EmbedBuilder();
-            embed.WithTitle("Help in your time of need!");
-            embed.WithColor(new Color(52, 152, 219));
-            embed.WithCurrentTimestamp();
-            await Context.Channel.SendMessageAsync("", embed: embed.Build(), HelpCommand);
-    }
-
         //Basic first command, I say "Ping", bot replies "Pong"
         //Generally, all commands must be activated by a prefix,
         //Unless the bot utilizes listeners and kwargs.
-        [Command("Ping")]
-        public async Task Ping() { await ReplyAsync("pong"); }
+        [Command("ping")]
+        [Summary("Returns Pong!")]
+        public async Task ping()
+        {
+            await ReplyAsync($"Pong! `Latency: {(Context.Client as DiscordSocketClient).Latency}ms`");
+        }
 
         // ~sample userinfo --> foxbot#0282
         // ~sample userinfo @Khionu --> Khionu#8708
@@ -58,17 +40,17 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             await ReplyAsync($"{userInfo.Username}#{userInfo.Discriminator}");
         }
 
-      // [Command("cat")]
-      // [Summary("Returns a kitty")]
-      // public async Task Cat()
-      // {
-      //    //var embed = new EmbedBuilder();
-      //    //embed.WithTitle("Here's a cat!");
-      //    //embed.WithImageUrl("https://imgur.com/r/cats/oNPbwxs");
-      //    //embed.WithColor(new Color(52, 152, 219));
-      //    //embed.WithCurrentTimestamp();
-      //     await Context.Channel.SendMessageAsync("", embed: embed.Build());
-      // }
+     // [Command("cat")]
+     // [Summary("Returns a kitty")]
+     // public async Task Cat()
+     // {
+     //    var embed = new EmbedBuilder();
+     //    embed.WithTitle("Here's a cat!");
+     //    embed.WithImageUrl("https://imgur.com/r/cats/oNPbwxs");
+     //    embed.WithColor(new Color(52, 152, 219));
+     //    embed.WithCurrentTimestamp();
+     //     await Context.Channel.SendMessageAsync("", embed: embed.Build());
+     // }
 
         [Command("xkcd")]
         [Summary("Returns an xkcd comic")]
@@ -82,8 +64,39 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             await Context.Channel.SendMessageAsync("", embed: embed.Build());
         }
 
-      
-        
+        // Displays the number of days in a month for the current year
+        [Command("MonthLength")]
+        [Summary("Command to display how many days a month has this year. Pass the month number (e.g. 1 for January, 2 for February and so on) as an argument.")]
+        public async Task MonthLength(uint month)
+        {
+            int feb;
+            int year = DateTime.Now.Year;
+            if (year % 4 == 0 && ((year % 100 != 0) || (year % 400 == 0)))
+                feb = 29;
+            else
+                feb = 28;
+
+            Tuple<string, int>[] months = {
+                Tuple.Create("January", 31),
+                Tuple.Create("February", feb),
+                Tuple.Create("March", 31),
+                Tuple.Create("April", 30),
+                Tuple.Create("May", 31),
+                Tuple.Create("June", 30),
+                Tuple.Create("July", 31),
+                Tuple.Create("August", 31),
+                Tuple.Create("September", 30),
+                Tuple.Create("October", 31),
+                Tuple.Create("November", 30),
+                Tuple.Create("December", 31)
+            };
+            string response = months[month - 1].Item1 + " has " + months[month - 1].Item2 + " days.";
+
+            await ReplyAsync(response);
+        }
+
+
+
 
 
 

@@ -34,6 +34,8 @@ namespace Zachary_Childers_CPT_185_Final.Admin
             await Context.Message.DeleteAsync();
         }
 
+
+
         [Command("purge")]
         [Remarks("Purges A User's Last Messages. Default Amount To Purge Is 100")]
         [RequireUserPermission(GuildPermission.ManageMessages)]

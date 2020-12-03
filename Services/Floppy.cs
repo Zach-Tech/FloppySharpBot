@@ -1,91 +1,59 @@
 ﻿using System;
 using Discord;
 using Discord.WebSocket;
-using Discord.Commands;
-using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
+using Zachary_Childers_CPT_185_Final.Services;
 
 namespace Zachary_Childers_CPT_185_Final
 {
+
     class Floppy
     {
-
-        
-        
-            static void Main(string[] args) =>
-                new Floppy().RunBotAsync().GetAwaiter().GetResult();
-
-    
-
-        private DiscordSocketClient _client;
-        private CommandService _commands;
-        private IServiceProvider _services;
-
-        string token = "NjgwNTI5NDU0MjAzNjY2NDc5.XlBOcQ.bW2LrIhI-XSTpjemVJHTQl-j0a0";
+        static void Main(string[] args) => new Floppy().RunBotAsync().GetAwaiter().GetResult();
+            private DiscordSocketClient _client;
+            private CommandService _commands;
+             private IServiceProvider _services;
 
         public async Task RunBotAsync()
         {
-            try
-            {
-
-
-                Console.WriteLine("This is my project for CPT-185 - C#\n" +
-                "This is a bot that interacts with the Discord Chat application API and does a few fun things." +
-                "\nI've made a few of these before in various languages, such as C++, Python, various ones in C# --\n and am in the process of one in Rust." +
-                "\n\nI hope you'll enjoy!\nZachary Childers\n\n");
-
-
-                _client = new DiscordSocketClient();
-                _commands = new CommandService();
-
-                _services = new ServiceCollection()
-                    .AddSingleton(_client)
-                    .AddSingleton(_commands)
-                    .BuildServiceProvider();
-                _client.Log += _client_Log;
-                await RegisterCommandsAsync();
-                await _client.LoginAsync(TokenType.Bot, token);
-                await _client.StartAsync();
-                await Task.Delay(-1);
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("\nAn exception occurred! The token may be configured improperly, " +
-                    "or it may be wrong\nPlease double check the validity " +
-                    "of your token!\nIf you need a new token," +
-                    " head to:\nhttps://discord.com/developers/applications");
-            }
+            _client = new DiscordSocketClient();
+            _commands = new CommandService();
+            _services = new ServiceCollection()
+                .AddSingleton(_client)
+                .AddSingleton(_commands)        
+                .BuildServiceProvider();
+            string token = "NjgwNTI5NDU0MjAzNjY2NDc5.XlBOcQ.SFy57HLqbs-aYNMvOzFueeXXB6I";
+            _client.Log += _client_Log;
+            await RegisterCommandsAsync();
+            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.StartAsync();
+            await Task.Delay(-1);
 
         }
-
-
         private Task _client_Log(LogMessage arg)
         {
             Console.WriteLine(arg);
             return Task.CompletedTask;
-
         }
-        
-
-
-
         public async Task RegisterCommandsAsync()
         {
             _client.MessageReceived += HandleCommandAsync;
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
-
         private async Task HandleCommandAsync(SocketMessage arg)
         {
             var message = arg as SocketUserMessage;
             var context = new SocketCommandContext(_client, message);
-            if (message.Author.IsBot)return;
-
-
-
-
-
+            if (message.Author.IsBot) return;
 
             int argPos = 0;
             if (message.HasStringPrefix(">>", ref argPos))
@@ -94,8 +62,7 @@ namespace Zachary_Childers_CPT_185_Final
                 if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
                 if (result.Error.Equals(CommandError.UnmetPrecondition)) await message.Channel.SendMessageAsync(result.ErrorReason);
             }
-
-
         }
+
     }
 }
