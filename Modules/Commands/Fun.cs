@@ -14,7 +14,7 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
     public class Fun : ModuleBase
     {
         Random rnd = new Random();
-        //Dice command
+        //D6 die command
         [Command("die")]
         [Summary("Rolls specified die")]
         public async Task dice(int sides = 6)

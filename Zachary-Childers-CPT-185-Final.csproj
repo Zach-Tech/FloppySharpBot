@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="MiNET" Version="1.0.2191" />
+    <PackageReference Include="RestSharp" Version="106.11.8-alpha.0.7" />
   </ItemGroup>
 
 </Project>

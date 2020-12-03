@@ -7,11 +7,17 @@ using Discord.WebSocket;
 using System.Threading.Tasks;
 using Discord.Net;
 using MiNET.Plugins.Commands;
+using Zachary_Childers_CPT_185_Final.APIStuff;
+using RestSharp;
+using Zachary_Childers_CPT_185_Final.Services;
+
 
 namespace Zachary_Childers_CPT_185_Final.Commands
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        private static readonly RestClient client = new RestClient();
+
         //Basic first command, I say "Ping", bot replies "Pong"
         //Generally, all commands must be activated by a prefix,
         //Unless the bot utilizes listeners and kwargs.
@@ -36,9 +42,71 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             [Summary("The (optional) user to get info from")]
         SocketUser user = null)
         {
-            var userInfo = user ?? Context.Client.CurrentUser;
-            await ReplyAsync($"{userInfo.Username}#{userInfo.Discriminator}");
-        }
+            //{userInfo.Username}#{userInfo.Discriminator}\n{userInfo.Status}\n{userInfo.CreatedAt}\n{userInfo.Activity}
+            string nickname = "none";
+            IGuildUser self = Context.User as IGuildUser;
+            var uID = self.Id;
+            var userN = self.Username;
+            var time = self.CreatedAt;
+            var joined = self.JoinedAt;
+            var mention = self.Mention;
+            var Descrim = self.Discriminator;
+            var avatar = self.GetAvatarUrl();
+            var avatar2 = self.GetAvatarUrl();
+            if (self.Nickname != null && user == null)
+            {
+                nickname = self.Nickname;
+            }
+
+            if (user != null)
+            {
+                uID = user.Id;
+                userN = user.Username;
+                time = user.CreatedAt;
+                mention = user.Mention;
+                Descrim = user.Discriminator;
+                avatar = user.GetAvatarUrl();
+                avatar2 = user.GetAvatarUrl();
+           
+            }
+            if (avatar == null)
+            {
+                avatar = "none";
+                avatar2 = "https://cdn.discordapp.com/embed/avatars/0.png";
+            }
+
+            if (avatar.Contains("/a_"))
+            {
+                avatar = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
+                avatar2 = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
+            }
+
+            string footer;
+            if (avatar != "none")
+            {
+                footer = (
+                    $"[{avatar}]({avatar})"
+                );
+            }
+            else
+            {
+                footer = avatar;
+            }
+            Color color = new Color(250, 0, 255);
+            var embed = new EmbedBuilder()
+                .WithThumbnailUrl(avatar2)
+                .WithColor(color)
+                .WithTitle("User Info:")
+                .AddField(x => { x.Name = "Name:"; x.Value = userN; x.WithIsInline(true); })
+                .AddField(x => { x.Name = "ID:"; x.Value = uID; x.WithIsInline(true); })
+                .AddField(x => { x.Name = "Descrim:"; x.Value = Descrim; x.WithIsInline(true); })
+                .AddField(x => { x.Name = "Created at:"; x.Value = time.ToString().Remove(time.ToString().Length - 6); x.WithIsInline(true); })
+                .AddField(x => { x.Name = "Joined at:"; x.Value = joined.ToString().Remove(joined.ToString().Length - 6); x.WithIsInline(true); x.IsInline = true; })
+                .AddField(x => { x.Name = "Avatar:"; x.Value = footer; x.WithIsInline(false); })
+                .Build();
+
+            await Context.Channel.SendMessageAsync($"{mention}", false, embed);
+        } 
 
      // [Command("cat")]
      // [Summary("Returns a kitty")]
@@ -95,9 +163,24 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             await ReplyAsync(response);
         }
 
+        [Command("cool")]
+        public async Task cool()
+        {
+            var msg = await ReplyAsync("( ͡° ͜ʖ ͡°)>⌐■-■");
+            await Task.Delay(1500);
+            await msg.ModifyAsync(x => { x.Content = "( ͡⌐■ ͜ʖ ͡-■)"; });
+        }
 
-
-
+        //[Command("CurrentWeather")]
+        //[Summary("Gets current weather details (temperature in celcius) for the city")]
+        //public async Task GetCurrentWeather(string city)
+        //{
+        //    var openWeatherAPIClient = new OpenWeatherAPI(Configuration.config.OpenWeatherAPIKey);
+        //    var result = await openWeatherAPIClient.QueryAsync(city);
+        //    string response = $"The temperature in {city} is {result}C";
+        //    await ReplyAsync(response);
+        //}
+           //Api Seems to be good, will work on this in the future.
 
 
     }

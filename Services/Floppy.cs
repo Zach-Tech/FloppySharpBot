@@ -1,15 +1,12 @@
 ﻿using System;
 using Discord;
 using Discord.WebSocket;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Zachary_Childers_CPT_185_Final.Services;
 
@@ -58,7 +55,7 @@ namespace Zachary_Childers_CPT_185_Final
             int argPos = 0;
             if (message.HasStringPrefix(">>", ref argPos))
             {
-                var result = await _commands.ExecuteAsync(context, argPos, _services);
+                var result = await _commands.ExecuteAsync(context, argPos, services: _services);
                 if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
                 if (result.Error.Equals(CommandError.UnmetPrecondition)) await message.Channel.SendMessageAsync(result.ErrorReason);
             }
