@@ -1,0 +1,61 @@
+# FloppySharp Discord Bot
+Zachary Childers
+CPT-185, Spartanburg Community College
+Final project for C# class
+Discord API/.NET bot
+_____________________________________________________
+
+|| Invite link to the example server in video: https://discord.gg/deVUJ63MHn ||
+|| Link to YouTube video, explaining this in video format (My own lecture, if you will): https://youtu.be/4b_VaJmY0LY ||
+
+You will need:
+- Developer Token
+- A Server (Discord)
+- Self-Hosting (Easy)
+- A Discord account
+- Watch my YT video ahead of time.
+________________________________________________
+
+Step 1.)
+
+Either download, or open Discord in a browser. (likely easier on browser)
+
+- Open a second tab
+	-  Go to https://discord.com/developers/applications and start a new application, name it something unique
+		- Make it a Bot Application
+			- Copy that Token to **Floppy.cs line 39**
+
+Step 2.)
+
+Be sure that:
+- Presence
+- Public
+- Server
+Intents are checked.
+
+This has to do with a recent change (28th of October, 2020 in fact) wherein Discord now requires Developers
+to declare what sort of information they require (or aquire) for their bot operate.
+
+It's easier for a small fry like myself to just enable it at the start, (not enabling it is referred to as privileged)
+rather than trudge through Documentation to ensure i'm doing it all correctly.
+
+Step 3.)
+
+Head to OAuth2 and craft your bot invitation
+	- Select bot
+	- Have a discord server ready, or join the one I provided (https://discord.gg/deVUJ63MHn)
+		- if you're already signed in, select a server and the bot will be invited to that server.
+
+
+Step 4.)
+
+	Provide the bot an administrator role:
+
+	- Click server name > Server Settings > Roles > Click the (+) symbol > Name the Role > Click Administrator under General Permissions > Save.
+
+Step 5.)
+
+	Use the help command!
+	">>help"
+	Explore
+
