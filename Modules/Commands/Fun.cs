@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Web;
 using System.Linq;
 using Discord;
+using Discord.WebSocket;
 
 namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
 {
@@ -16,7 +17,7 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
         Random rnd = new Random();
         //D6 die command
         [Command("die")]
-        [Summary("Rolls specified die")]
+        [Summary("D6")]
         public async Task dice(int sides = 6)
         {
             if (sides >= 2 && sides <= 255)
@@ -131,15 +132,136 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
         [Summary("Searches YouTube for the provided value, returns a result")]
         public async Task cat()
         {
-                var embed = new EmbedBuilder();
-                // var returnURL = "http://theoldreader.com/kittens/600/400";
-                embed.WithImageUrl("http://theoldreader.com/kittens/600/400");
-                await ReplyAsync(embed: embed.Build());
-            
-               
+            var embed = new EmbedBuilder();
+            // var returnURL = "http://theoldreader.com/kittens/600/400";
+            embed.WithImageUrl("http://theoldreader.com/kittens/600/400");
+            await ReplyAsync(embed: embed.Build());
+
+
         }
 
+        [Command("null")]
+        [Summary("Inside Joke :)")]
+        public async Task Null()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\null_lmao.png");
+        }
 
+        [Command("Homies")]
+        [Summary("Inside Joke :)")]
+        public async Task Homies()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\homies.jpg");
+        }
+        [Command("mmm")]
+        [Summary("Inside Joke :)")]
+        public async Task Phallic()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\unknown.png");
+        }
 
+        [Command("BigPing")]
+        [Summary("Inside Joke :)")]
+        public async Task BIGPING()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\bigPing.png");
+        }
+
+        [Command("Clown")]
+        [Summary("Inside Joke :)")]
+        public async Task Clown()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\clown.png");
+        }
+
+        [Command("Sherpa")]
+        [Summary("Inside Joke :)")]
+        public async Task sherpa()
+        {
+
+            SocketUser user = null;
+
+            string message = (
+                 $"{""} {Format.Bold("The #1 Sherpa!")} The Legend!\n"
+              ); 
+            // $"{">>"} {Format.Bold("Ping: ")} Ping yourself, and return latency." +
+            //  $"{">>"} {Format.Bold("Ping: ")} Ping yourself, and return latency." +
+            //    $"{">>"} {Format.Bold("Ping: ")} Ping yourself, and return latency.
+            Color color = new Color(220, 87, 121);
+            string nickname = "none";
+            IGuildUser self = Context.User as IGuildUser;
+            var uID = self.Id;
+            var userN = self.Username;
+            var time = self.CreatedAt;
+            var joined = self.JoinedAt;
+            var mention = self.Mention;
+            var Descrim = self.Discriminator;
+            var avatar = self.GetAvatarUrl();
+            var avatar2 = self.GetAvatarUrl();
+            if (self.Nickname != null && user == null)
+            {
+                nickname = self.Nickname;
+            }
+
+            if (user != null)
+            {
+                uID = user.Id;
+                userN = user.Username;
+                time = user.CreatedAt;
+                mention = user.Mention;
+                Descrim = user.Discriminator;
+                avatar = user.GetAvatarUrl();
+                avatar2 = user.GetAvatarUrl();
+
+            }
+            if (avatar == null)
+            {
+                avatar = "none";
+                avatar2 = "https://cdn.discordapp.com/embed/avatars/0.png";
+            }
+
+            if (avatar.Contains("/a_"))
+            {
+                avatar = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
+                avatar2 = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
+            }
+
+            string footer;
+            if (avatar != "none")
+            {
+                footer = (
+                    $"[{avatar}]({avatar})"
+                );
+            }
+            else
+            {
+                footer = avatar;
+            }
+            var embed = new EmbedBuilder()
+                .WithTitle("Brosario!\n\n")
+                .WithColor(color)
+                .AddField(x => { x.Name = "\n`                            ` \n"; x.Value = message; x.WithIsInline(true); })
+                .WithDescription("I wish I could be Sherpa'd by his godly hands\nnestled between his Sherpa-ly abs....\nremember his name....\nBrosario...")
+                //.AddField(x => { x.Name = "Avatar"; x.Value = footer; x.WithIsInline(true); })
+                //    .AddField(x => { x.Name = "Note Types:"; x.Value = message; x.WithIsInline(true); })  
+                //    .AddField(x => { x.Name = "Limits:"; x.Value = message; x.WithIsInline(true); })           
+                .Build();
+            await Context.Channel.SendMessageAsync("", false, embed);
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\image0.png");
+        }
+
+        [Command("Indeed")]
+        [Summary("Inside Joke :)")]
+        public async Task Indeed()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\Indeed.jpg");
+        }
+
+        [Command("spong")]
+        [Summary("Inside Joke :)")]
+        public async Task spong()
+        {
+            await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\sponge.png");
+        }
     }
 }
