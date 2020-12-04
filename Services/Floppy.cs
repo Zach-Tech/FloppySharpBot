@@ -5,15 +5,28 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using Zachary_Childers_CPT_185_Final.Services;
+
 namespace Zachary_Childers_CPT_185_Final
 {
 
     class Floppy
     {
-        static void Main(string[] args) => new Floppy().RunBotAsync().GetAwaiter().GetResult();
-            private DiscordSocketClient _client;
-            private CommandService _commands;
-             private IServiceProvider _services;
+        public static void Main(string[] args) 
+        {
+            try
+            {
+                new Floppy().RunBotAsync().GetAwaiter().GetResult();
+            }
+            catch(Exception E)
+            {
+                Console.WriteLine(E.Message);
+            }
+        }
+         
+        private DiscordSocketClient _client;
+        private CommandService _commands;
+        private IServiceProvider _services;
 
         public async Task RunBotAsync()
         {
@@ -21,9 +34,9 @@ namespace Zachary_Childers_CPT_185_Final
             _commands = new CommandService();
             _services = new ServiceCollection()
                 .AddSingleton(_client)
-                .AddSingleton(_commands)        
+                .AddSingleton(_commands)
                 .BuildServiceProvider();
-            string token = "NjgwNTI5NDU0MjAzNjY2NDc5.XlBOcQ.SFy57HLqbs-aYNMvOzFueeXXB6I";
+            string token = "YOUR TOKEN";
             _client.Log += _client_Log;
             await RegisterCommandsAsync();
             await _client.LoginAsync(TokenType.Bot, token);
@@ -43,16 +56,24 @@ namespace Zachary_Childers_CPT_185_Final
         }
         private async Task HandleCommandAsync(SocketMessage arg)
         {
+            
             var message = arg as SocketUserMessage;
-            var context = new SocketCommandContext(_client, message);
-            if (message.Author.IsBot) return;
+            if (message == null) return;
+            if (message.Source != MessageSource.User) { return; };
+
 
             int argPos = 0;
-            if (message.HasStringPrefix(">>", ref argPos))
+            if (message.HasStringPrefix(str: ">>", ref argPos))
             {
+                var context = new SocketCommandContext(_client, message);
                 var result = await _commands.ExecuteAsync(context, argPos, services: _services);
-                if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
-                if (result.Error.Equals(CommandError.UnmetPrecondition)) await message.Channel.SendMessageAsync(result.ErrorReason);
+                if (!result.IsSuccess)
+                {
+                    if (result.ErrorReason != "Unknown command.")
+                    {
+                        await message.Channel.SendMessageAsync($"**Error:** {result.ErrorReason}");
+                    }
+                }
             }
         }
 
