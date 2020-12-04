@@ -1,5 +1,6 @@
 ﻿//FloppySharp Discord Bot
 //Zachary Childers
+//(864)-680-4022
 //CPT-185, Spartanburg Community College
 //Final project for C# class
 //Discord API/.NET bot
