@@ -1,15 +1,10 @@
 ﻿using System;
 using Discord;
 using Discord.WebSocket;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
-using Zachary_Childers_CPT_185_Final.Services;
-
 namespace Zachary_Childers_CPT_185_Final
 {
 

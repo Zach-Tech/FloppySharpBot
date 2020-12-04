@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Discord.Commands;
-using Discord.Webhook;
 using System.Threading.Tasks;
-using System.Globalization;
 using System.Web;
 using System.Linq;
 using Discord;
@@ -30,7 +26,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
                 await ReplyAsync($"you entered {sides}, please try agian\nMin:2\nMax255");
             }
         }
-
         [Command("YTSearch")]
         [Summary("Searches YouTube for the provided value, returns a result")]
         public async Task YTSearch(string query)
@@ -39,7 +34,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
             await ReplyAsync(returnURL);
             //should construct the search query and result
         }
-
         [Command("urban")]
         [Summary("Look up a word on the urban dictionary")]
         public async Task Urban(string key)
@@ -47,7 +41,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
             var url = "https://www.urbandictionary.com/define.php?term=" + HttpUtility.UrlEncode(key);
             await ReplyAsync(url);
         }
-
         [Command("LMGTFY")]
         [Summary("Whenever someone asks something obviousy, Google it for them!")]
         public async Task LetMeGoogleThatForYou(string search)
@@ -56,7 +49,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
 
             await ReplyAsync(sarcasm);
         }
-
         [Command("google")]
         [Summary("Searches YouTube for the provided value, returns a result")]
         public async Task Google(string query)
@@ -65,7 +57,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
             await ReplyAsync(returnURL);
             //should construct the search query and result
         }
-
         [Command("coin")]
         [Summary("Simple coin toss game")]
         public async Task coin()
@@ -86,7 +77,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
                 Console.WriteLine("[ERROR] [" + Context.Guild.Name.ToString() + "] Invalid coin toss, threw " + ranNum.ToString());
             }
         }
-
         [Command("Palindrome")]
         [Summary("Checks to see if provided word is or is not a palindrome.")]
         public async Task CheckIfPalindrome(string wordToCheck)
@@ -98,7 +88,6 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
 
             await ReplyAsync(wordToCheck + " is " + (wordIsPalindrome ? "" : "not ") + "a palindrome.");
         }
-
         [Command("Prime")]
         [Summary("Check if number is Prime")]
         public async Task PrimeNumberCheck(string number)
@@ -122,31 +111,28 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
                     }
                 }
             }
-
             result = $"{number} is{(!isPrime ? " not" : string.Empty)} a prime number";
             await ReplyAsync(result);
         }
-
-
         [Command("cat")]
-        [Summary("Searches YouTube for the provided value, returns a result")]
+        [Summary("Returns Cat Picture")]
         public async Task cat()
         {
             var embed = new EmbedBuilder();
             // var returnURL = "http://theoldreader.com/kittens/600/400";
             embed.WithImageUrl("http://theoldreader.com/kittens/600/400");
             await ReplyAsync(embed: embed.Build());
-
-
         }
-
+        //The following commands are several 
+        //Inside jokes between friends
+        //
+        //
         [Command("null")]
         [Summary("Inside Joke :)")]
         public async Task Null()
         {
             await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\null_lmao.png");
         }
-
         [Command("Homies")]
         [Summary("Inside Joke :)")]
         public async Task Homies()
@@ -155,7 +141,7 @@ namespace Zachary_Childers_CPT_185_Final.Modules.FunCommands
         }
         [Command("mmm")]
         [Summary("Inside Joke :)")]
-        public async Task Phallic()
+        public async Task Sparrow()
         {
             await Context.Channel.SendFileAsync("C:\\Users\\ZChil\\Desktop\\Fall 2020\\C# Class\\Zachary-Childers-CPT-185-Final\\Modules\\MemeImages\\unknown.png");
         }

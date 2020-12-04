@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Discord.Commands;
 using Discord;
 using Discord.WebSocket;
 using System.Threading.Tasks;
-using Discord.Net;
-using MiNET.Plugins.Commands;
-using Zachary_Childers_CPT_185_Final.APIStuff;
 using RestSharp;
-using Zachary_Childers_CPT_185_Final.Services;
+
 
 
 namespace Zachary_Childers_CPT_185_Final.Commands
@@ -17,7 +12,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
     public class Commands : ModuleBase<SocketCommandContext>
     {
         private static readonly RestClient client = new RestClient();
-
         //Basic first command, I say "Ping", bot replies "Pong"
         //Generally, all commands must be activated by a prefix,
         //Unless the bot utilizes listeners and kwargs.
@@ -32,7 +26,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
                 .Build();
             await Context.Channel.SendMessageAsync($"", false, embed);
         }
-
         // ~sample userinfo --> foxbot#0282
         // ~sample userinfo @Khionu --> Khionu#8708
         // ~sample userinfo Khionu#8708 --> Khionu#8708
@@ -62,7 +55,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             {
                 nickname = self.Nickname;
             }
-
             if (user != null)
             {
                 uID = user.Id;
@@ -79,13 +71,11 @@ namespace Zachary_Childers_CPT_185_Final.Commands
                 avatar = "none";
                 avatar2 = "https://cdn.discordapp.com/embed/avatars/0.png";
             }
-
             if (avatar.Contains("/a_"))
             {
                 avatar = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
                 avatar2 = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
             }
-
             string footer;
             if (avatar != "none")
             {
@@ -109,10 +99,8 @@ namespace Zachary_Childers_CPT_185_Final.Commands
                 .AddField(x => { x.Name = "Joined at:"; x.Value = joined.ToString().Remove(joined.ToString().Length - 6); x.WithIsInline(true); x.IsInline = true; })
                 //.AddField(x => { x.Name = "Avatar:"; x.Value = footer; x.WithIsInline(false); })
                 .Build();
-
             await Context.Channel.SendMessageAsync($"{mention}", false, embed);
         }
-
         // [Command("cat")]
         // [Summary("Returns a kitty")]
         // public async Task Cat()
@@ -124,7 +112,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
         //    embed.WithCurrentTimestamp();
         //     await Context.Channel.SendMessageAsync("", embed: embed.Build());
         // }
-
         [Command("xkcd")]
         [Summary("Returns an xkcd comic")]
         public async Task xkcd()
@@ -135,9 +122,7 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             embed.WithColor(new Color(52, 152, 219));
             embed.WithCurrentTimestamp();
             await Context.Channel.SendMessageAsync("", embed: embed.Build());
-        }
-
-        // Displays the number of days in a month for the current year
+        }        // Displays the number of days in a month for the current year
         [Command("MonthLength")]
         [Summary("Command to display how many days a month has this year. Pass the month number (e.g. 1 for January, 2 for February and so on) as an argument.")]
         public async Task MonthLength(uint month)
@@ -148,7 +133,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
                 feb = 29;
             else
                 feb = 28;
-
             Tuple<string, int>[] months = {
                 Tuple.Create("January", 31),
                 Tuple.Create("February", feb),
@@ -164,10 +148,8 @@ namespace Zachary_Childers_CPT_185_Final.Commands
                 Tuple.Create("December", 31)
             };
             string response = months[month - 1].Item1 + " has " + months[month - 1].Item2 + " days.";
-
             await ReplyAsync(response);
-        }
-
+        }      
         [Command("cool")]
         public async Task cool()
         {
@@ -175,7 +157,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             await Task.Delay(1500);
             await msg.ModifyAsync(x => { x.Content = "( ͡⌐■ ͜ʖ ͡-■)"; });
         }
-
         //[Command("CurrentWeather")]
         //[Summary("Gets current weather details (temperature in celcius) for the city")]
         //public async Task GetCurrentWeather(string city)
@@ -217,7 +198,6 @@ namespace Zachary_Childers_CPT_185_Final.Commands
 
         [Command("Help")]
         [Summary("Displays Commands")]
-
         public async Task Help()
         {
             SocketUser user = null;
@@ -272,13 +252,11 @@ namespace Zachary_Childers_CPT_185_Final.Commands
                 avatar = "none";
                 avatar2 = "https://cdn.discordapp.com/embed/avatars/0.png";
             }
-
             if (avatar.Contains("/a_"))
             {
                 avatar = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
                 avatar2 = $"{avatar.Remove(avatar.Length - 12)}gif?size=128";
             }
-
             string footer;
             if (avatar != "none")
             {
@@ -299,12 +277,8 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             //    .AddField(x => { x.Name = "Note Types:"; x.Value = message; x.WithIsInline(true); })  
             //    .AddField(x => { x.Name = "Limits:"; x.Value = message; x.WithIsInline(true); })           
                 .Build();
-
             await Context.Channel.SendMessageAsync($"{mention}", false, embed);
         }
-
-
-
         [Command("Goodnight")]
         [RequireOwner]
         [Summary("Tells the server goodnight")]
@@ -323,8 +297,16 @@ namespace Zachary_Childers_CPT_185_Final.Commands
             await Task.Delay(3000);
             Environment.Exit(0);
         }
-
-
-
+        //[Command("CurrentWeather")]
+        //[Summary("Gets current weather details (temperature in celcius) for the city")]
+        //public async Task GetCurrentWeather(string city)
+        //{
+        //    OpenWeatherAPI openWeatherAPIClient = new OpenWeatherAPI(Configuration.config.OpenWeatherAPIKey);
+        //    var result = await openWeatherAPIClient.QueryAsync(city);
+        //    string response = $"The temperature in {city} is {result}C";
+        //    await ReplyAsync(response);
+        //} can't figure out the api, but I'm leaving this for future reference
     }
 }
+
+

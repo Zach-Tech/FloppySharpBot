@@ -1,7 +1,6 @@
 ﻿using Discord;
 using System;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace Zachary_Childers_CPT_185_Final.Services
 {
