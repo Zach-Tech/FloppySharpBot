@@ -41,7 +41,7 @@ namespace Zachary_Childers_CPT_185_Final
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
-            string token = "YOUR TOKEN HERE";
+            string token = "!!!!!!YOUR TOKEN HERE!!!!!!!";
             _client.Log += _client_Log;
             await RegisterCommandsAsync();
             await _client.LoginAsync(TokenType.Bot, token);
