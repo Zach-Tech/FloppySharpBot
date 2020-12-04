@@ -1,4 +1,9 @@
-﻿using System;
+﻿//FloppySharp Discord Bot
+//Zachary Childers
+//CPT-185, Spartanburg Community College
+//Final project for C# class
+//Discord API/.NET bot
+using System;
 using Discord;
 using Discord.WebSocket;
 using System.Reflection;
